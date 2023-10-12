@@ -1,91 +1,65 @@
+<template>
+  <div
+    class="bg-gray-100 min-h-screen flex flex-col items-center justify-center"
+  >
+    <transition name="fade" mode="out-in">
+      <div :key="showGreeting" class="text-center">
+        <h1 class="text-3xl font-semibold text-black mb-4">
+          Welcome to the Innovalabs Assignment
+        </h1>
+        <p class="text-lg text-gray-600 mb-8" v-if="showGreeting">
+          click on question to go to the solution page
+        </p>
+      </div>
+    </transition>
+    <div class="w-full md:w-2/3 lg:w-1/2">
+      <h2 class="text-2xl font-semibold text-black mb-4 mt-8">Questions</h2>
+      <div
+        v-for="question in questions"
+        :key="question.id"
+        class="p-4 border rounded-md mb-4 hover:shadow-md transition cursor-pointer"
+      >
+        <h3 class="text-lg font-semibold text-black mb-2">
+          {{ question.title }}
+        </h3>
+        <p class="text-gray-700">{{ question.description }}</p>
+      </div>
+    </div>
+  </div>
+</template>
+
 <script setup>
-import WelcomeItem from "./WelcomeItem.vue";
-import DocumentationIcon from "./icons/IconDocumentation.vue";
-import ToolingIcon from "./icons/IconTooling.vue";
-import EcosystemIcon from "./icons/IconEcosystem.vue";
-import CommunityIcon from "./icons/IconCommunity.vue";
-import SupportIcon from "./icons/IconSupport.vue";
+import { ref } from 'vue';
+
+const showGreeting = ref(true);
+
+const questions = ref([
+  {
+    id: 1,
+    title: 'Question A',
+    description: 'Parent-child communication,Child Parent Communication,Child Child Communication',
+  },
+  {
+    id: 2,
+    title: 'Question B',
+    description: 'Need to list total users from an API in a paginated list. The list can be searched and filtered',
+  },
+  {
+    id: 3,
+    title: 'Question C',
+    description: "Write code to build form and handle this dynamically. When the user press submit button this form needs to be validated before submit. This block can be dynamic JSON. This can be N number of Blocks.",
+  },
+  // Add more questions with descriptions as needed
+]);
 </script>
 
-<template>
-  <WelcomeItem>
-    <template #icon>
-      <DocumentationIcon />
-    </template>
-    <template #heading>Documentation</template>
-
-    Vue’s
-    <a target="_blank" href="https://vuejs.org/">official documentation</a>
-    provides you with all information you need to get started.
-  </WelcomeItem>
-
-  <WelcomeItem>
-    <template #icon>
-      <ToolingIcon />
-    </template>
-    <template #heading>Tooling</template>
-
-    This project is served and bundled with
-    <a href="https://vitejs.dev/guide/features.html" target="_blank">Vite</a>.
-    The recommended IDE setup is
-    <a href="https://code.visualstudio.com/" target="_blank">VSCode</a> +
-    <a href="https://github.com/johnsoncodehk/volar" target="_blank">Volar</a>.
-    If you need to test your components and web pages, check out
-    <a href="https://www.cypress.io/" target="_blank">Cypress</a> and
-    <a href="https://on.cypress.io/component" target="_blank"
-      >Cypress Component Testing</a
-    >.
-
-    <br />
-
-    More instructions are available in <code>README.md</code>.
-  </WelcomeItem>
-
-  <WelcomeItem>
-    <template #icon>
-      <EcosystemIcon />
-    </template>
-    <template #heading>Ecosystem</template>
-
-    Get official tools and libraries for your project:
-    <a target="_blank" href="https://pinia.vuejs.org/">Pinia</a>,
-    <a target="_blank" href="https://router.vuejs.org/">Vue Router</a>,
-    <a target="_blank" href="https://test-utils.vuejs.org/">Vue Test Utils</a>,
-    and
-    <a target="_blank" href="https://github.com/vuejs/devtools">Vue Dev Tools</a
-    >. If you need more resources, we suggest paying
-    <a target="_blank" href="https://github.com/vuejs/awesome-vue"
-      >Awesome Vue</a
-    >
-    a visit.
-  </WelcomeItem>
-
-  <WelcomeItem>
-    <template #icon>
-      <CommunityIcon />
-    </template>
-    <template #heading>Community</template>
-
-    Got stuck? Ask your question on
-    <a target="_blank" href="https://chat.vuejs.org">Vue Land</a>, our official
-    Discord server, or
-    <a target="_blank" href="https://stackoverflow.com/questions/tagged/vue.js"
-      >StackOverflow</a
-    >. You should also subscribe to
-    <a target="_blank" href="https://news.vuejs.org">our mailing list</a> and
-    follow the official
-    <a target="_blank" href="https://twitter.com/vuejs">@vuejs</a>
-    twitter account for latest news in the Vue world.
-  </WelcomeItem>
-
-  <WelcomeItem>
-    <template #icon>
-      <SupportIcon />
-    </template>
-    <template #heading>Support Vue</template>
-
-    As an independent project, Vue relies on community backing for its
-    sustainability. You can help us by
-    <a target="_blank" href="https://vuejs.org/sponsor/">becoming a sponsor</a>.
-  </WelcomeItem>
-</template>
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
