@@ -19,10 +19,14 @@
         :key="question.id"
         class="p-4 border rounded-md mb-4 hover:shadow-md transition cursor-pointer"
       >
+      <router-link :to="{name:question.routeName}">
         <h3 class="text-lg font-semibold text-black mb-2">
           {{ question.title }}
         </h3>
         <p class="text-gray-700">{{ question.description }}</p>
+
+      </router-link>
+        
       </div>
     </div>
   </div>
@@ -38,16 +42,19 @@ const questions = ref([
     id: 1,
     title: 'Question A',
     description: 'Parent-child communication,Child Parent Communication,Child Child Communication',
+    routeName:'QuestionA'
   },
   {
     id: 2,
     title: 'Question B',
     description: 'Need to list total users from an API in a paginated list. The list can be searched and filtered',
+    routeName:'QuestionB'
   },
   {
     id: 3,
     title: 'Question C',
     description: "Write code to build form and handle this dynamically. When the user press submit button this form needs to be validated before submit. This block can be dynamic JSON. This can be N number of Blocks.",
+    routeName:'QuestionC'
   },
   // Add more questions with descriptions as needed
 ]);
