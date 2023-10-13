@@ -100,6 +100,8 @@ const formData = ref({});
 
 const errors = ref({});
 
+
+//form value default
 for (const block of blocks) {
   formData.value[block.token] =
     block.props.default !== undefined ? block.props.default : "";
@@ -125,6 +127,21 @@ const submitForm = () => {
       errors.value[block.token] = "This field is required.";
     } else {
       errors.value[block.token] = null;
+    }
+
+    // Additional validation for age
+    if (formData.value["PERSON_DOB"]) {
+      const dob = new Date(formData.value["PERSON_DOB"]);
+      const today = new Date();
+      const age = today.getFullYear() - dob.getFullYear();
+
+      if (formData.value["IS_PERSON_MINOR"] && age >= 18) {
+        errors.value["PERSON_DOB"] = "Person must be under 18 years old.";
+      } else if (!formData.value["IS_PERSON_MINOR"] && age < 18) {
+        errors.value["PERSON_DOB"] = "Person must be 18 years or older.";
+      } else {
+        errors.value["PERSON_DOB"] = null;
+      }
     }
   }
 
