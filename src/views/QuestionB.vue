@@ -2,6 +2,7 @@
 import { useStore } from "@/stores/questionB";
 import { ref, computed, onMounted } from "vue";
 import UserTable from "@/components/questionB/userTable.vue";
+import Pagination from '@/components/questionB/pagination.vue'
 import debounce from "lodash/debounce";
 const store = useStore();
 let loading = ref(false);
@@ -28,7 +29,7 @@ const getUsers = async () => {
 
 const searchUser = async () => {
   //   if (searchKey.value.trim() !== "") {
-
+    loading.value = true;
   try {
     await store.searchUser(searchKey.value);
   } catch (error) {
@@ -40,7 +41,7 @@ const searchUser = async () => {
 };
 
 const debouncedSearch = debounce(() => {
-  loading.value = true;
+  
   searchUser();
 }, 500);
 </script>
@@ -59,5 +60,6 @@ const debouncedSearch = debounce(() => {
     <div class="rounded-lg overflow-hidden shadow bg-white">
       <UserTable :users="usersData" :loading="loading" />
     </div>
+    <Pagination :currentPage.sync="1" :totalPages="10" />
   </div>
 </template>

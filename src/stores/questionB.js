@@ -6,9 +6,10 @@ export const useStore = defineStore({
   state: () => ({
     users: [],
     paginationData:{
-        _start:0,
-        _limit:5,
-        count:10
+        start:0,
+        limit:5,
+        count:10,
+        page:1
     },
     filterData:[],
   }),
@@ -18,10 +19,17 @@ export const useStore = defineStore({
     getFilterData:(state)=> state.filterData
   },
   actions: {
+    changePage(payload){
+        console.log('changePage-s',payload)
+        const {page=1,limit=5} = payload;
+        this.paginationData.page = page;
+        this.paginationData.start = (page - 1) * this.paginationData.limit;
+        this.fetchAllUsers()
+    },
     fetchAllUsers(payload={}) {
-        const {start=0,limit=5} = payload;
+        // const {start=5,limit=5} = payload;
         new Promise((resolve, reject) => {
-            axios.get(`${baseurl}users?_start=${start}&_limit=${limit}`)
+            axios.get(`${baseurl}users?_start=${this.paginationData.start}&_limit=${this.paginationData.limit}`)
             .then((response)=>{
                 console.log('fetchAllUsers',response)
                 this.users = response.data
